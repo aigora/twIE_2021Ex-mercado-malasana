@@ -1,6 +1,6 @@
 #include "libreriadiego.h"
 
-void inicio(char opcion)
+void menu_inicio()
 {
-
+    printf("*Tiendas(T)\t Acerca del mercado\t Direccion y horarios\t");
 }
