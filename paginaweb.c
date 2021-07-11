@@ -6,8 +6,8 @@ void tiendas(void);
 int main()
 {
     FILE *pInformacion, *pDireccion_Hora, *pCharcuteria, *pFruteria, *pPanaderia, *pPescaderia;
-    char *DireccionyHorarios, *Informacion;
-    long int SizeFicheroDireccionyHorarios, SizeFicheroInformacion;
+    char *DireccionyHorarios, *Informacion, *Charcuteriadial;
+    long int SizeFicheroDireccionyHorarios, SizeFicheroInformacion, SizeFicherocharcuterialdial;
     int i;
     char letratiendas_Acerca_Dir, letrainicio;
 
@@ -59,6 +59,26 @@ int main()
         while(fscanf(pInformacion, "%c", &Informacion[i])!=EOF)
             i++;
         fclose(pInformacion);
+    }
+
+    //Fichero Charcuteria Dial
+
+    pCharcuteria=fopen("charcuteriadial.txt", "r");
+    if(pCharcuteria==NULL)
+    {
+        printf("Error al abrir fichero\n");
+        exit(-1);
+    }
+    else
+    {
+        fseek(pCharcuteria, 0, SEEK_END);
+        SizeFicherocharcuterialdial=ftell(pCharcuteria);
+        fseek(pCharcuteria, 0, SEEK_SET);
+        Charcuteriadial=malloc(SizeFicherocharcuterialdial);
+        i=0;
+        while(fscanf(pCharcuteria, "%c", &Charcuteriadial[i])!=EOF)
+            i++;
+        fclose(pCharcuteria);
     }
 
     //Pantalla inicial
