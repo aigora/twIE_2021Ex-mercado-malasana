@@ -1,11 +1,14 @@
-# [Título del trabajo]
+# [Mercado Malasaña]
 
-[Descripción breve del proyecto a realizar (2-3 frases).]
+[Voy a realizar la pagina web de un mercado de barrio. El objetivo es que el cliente pueda informarse de los productos
+que tiene el mercado sin la necesidad de salir de casa, pudiendo realizar compras online gracias al servicio a domicilio.]
 
 ## Integrantes del equipo
 
-[Nombres, apellidos, y usuario GitHub de los integrantes del equipo.]
+[Diego, Martín González, diegomg99.]
 
 ## Objetivos del trabajo
 
-[Lista de los objetivos que se persiguen con el trabajo propuesto.]
+[Se mostraran las diferentes secciones: charcuteria, pescaderia,...
+y al acceder a cualquiera de ellas mostrara los puestos relacionados con cada una. Al acceder a cada puesto
+se mostrarán los productos y la opcion de comprarlos de forma online o llamando por telefono gracias al servicio a domicilio.]
