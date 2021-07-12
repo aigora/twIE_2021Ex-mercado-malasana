@@ -111,11 +111,13 @@ int main()
 }
 void menu_inicio(void)
 {
-    printf("                         MERCADO  MALASANA                    \n\n\n");
-    printf("||Tiendas(T)||\t ||Acerca del mercado(A)||\t ||Direccion y horarios(D)||\t\n\n");
+    printf("\n\n                               ~~MERCADO  MALASANA~~                    \n\n\n");
+    printf("        -----------  \t       ---------------------  \t   -----------------------\n");
+    printf("       ||Tiendas(T)||\t     ||Acerca del mercado(A)||\t ||Direccion y horarios(D)||\n");
+    printf("        -----------  \t       ---------------------  \t   -----------------------\n\n");
 }
 void tiendas(void)
 {
-    printf("||Charcuteria(C)||\t ||Fruteria(F)||\t ||Panaderia(B)||\t ||Pescaderia(P)||\t");
+    printf("         ||Charcuteria(C)||\t ||Fruteria(F)||\t ||Panaderia(B)||\t ||Pescaderia(P)||\n");
 }
 
