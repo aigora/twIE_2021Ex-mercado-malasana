@@ -13,7 +13,8 @@ int main()
     char *DireccionyHorarios, *Informacion, *Charcuteriadial, *Charcuteriaextrem;
     long int SizeFicheroDireccionyHorarios, SizeFicheroInformacion, SizeFicherocharcuterialdial, SizeFicherocharcuteriaextrem;
     int i;
-    char letramenuinicio, letra_a_inicio, letratiendas, letracharcuterias;
+    int teclamenuinicio, teclatiendas, teclacharcuterias, teclafruterias, teclapescaderias;
+    char tecla_a_inicio;
 
     //Fichero con la direccion y horario del mercado
 
@@ -117,48 +118,70 @@ int main()
     //Pantalla inicial
 
     menu_inicio();
-    scanf("%c", &letramenuinicio); //introducimos la letra correspondiente segun la opcion que queramos
-    switch(letramenuinicio)
+    scanf("%i", &teclamenuinicio); //introducimos la letra correspondiente segun la opcion que queramos
+    switch(teclamenuinicio)
     {
-    case 't':
-    case 'T':
+    case 1:
         tiendas();
         fflush(stdin);
-        scanf("%c", &letratiendas);
-        switch(letratiendas)
+        scanf("%i", &teclatiendas);
+        switch(teclatiendas)
         {
-        case 'c':
-        case 'C':
+        case 1:
             charcuterias();
+            fflush(stdin);
+            scanf("%i", &teclacharcuterias);
+            if(teclacharcuterias==1)
+            {
+                printf("%s\n", Charcuteriadial);
+            }
+            else if(teclacharcuterias==2)
+            {
+                printf("%s\n", Charcuteriaextrem);
+            }
             break;
-        case 'f':
-        case 'F':
+        case 2:
             fruterias();
+            fflush(stdin);
+            scanf("%i", &teclafruterias);
+            if(teclafruterias==1)
+            {
+                printf("%s\n", Charcuteriadial);
+            }
+            else if(teclafruterias==2)
+            {
+                printf("%s\n", Charcuteriaextrem);
+            }
             break;
-        case 'p':
-        case 'P':
-            pescaderias();
-            break;
-        case 'b':
-        case 'B':
+        case 3:
             printf("Panaderia\n");
             break;
-
+        case 4:
+            pescaderias();
+            fflush(stdin);
+            scanf("%i", &teclapescaderias);
+            if(teclapescaderias==1)
+            {
+                printf("%s\n", Charcuteriadial);
+            }
+            else if(teclapescaderias==2)
+            {
+                printf("%s\n", Charcuteriaextrem);
+            }
+            break;
         }
         break;
-    case 'a':
-    case 'A':
+    case 2:
         printf("%s\t", Informacion);
         break;
-    case 'd':
-    case 'D':
+    case 3:
         printf("%s\n", DireccionyHorarios);
         fflush(stdin);
         do
         {
-            scanf("%c", &letra_a_inicio);
+            scanf("%c", &tecla_a_inicio);
         }
-        while(letra_a_inicio!='i'||letra_a_inicio!='I');
+        while(tecla_a_inicio!='i'||tecla_a_inicio!='I');
         menu_inicio();
         break;
 
@@ -169,23 +192,23 @@ void menu_inicio(void)
 {
     printf("\n\n                               ~~MERCADO  MALASANA~~\n\n\n");
     printf("        -----------  \t       ---------------------  \t   -----------------------\n");
-    printf("       ||Tiendas(T)||\t     ||Acerca del mercado(A)||\t ||Direccion y horarios(D)||\n");
+    printf("       ||Tiendas(1)||\t     ||Acerca del mercado(2)||\t ||Direccion y horarios(3)||\n");
     printf("        -----------  \t       ---------------------  \t   -----------------------\n\n");
 }
 void tiendas(void)
 {
-    printf("         ||Charcuteria(C)||\t ||Fruteria(F)||\t ||Panaderia(B)||\t ||Pescaderia(P)||\n");
+    printf("         ||Charcuteria(1)||\t ||Fruteria(2)||\t ||Panaderia(3)||\t ||Pescaderia(4)||\n\n");
 }
 void charcuterias(void)
 {
-    printf("          ||Charcuteria Dial(D)||      ||Charcuteria Extremena(E)||\n");
+    printf("                  ||Charcuteria Dial(1)||      ||Charcuteria Extremena(2)||\n\n");
 }
 void fruterias(void)
 {
-    printf("          ||Fruteria Alberto(A)||      ||Fruteria Manolo(M)||\n");
+    printf("                  ||Fruteria Alberto(1)||      ||Fruteria Manolo(2)||\n");
 }
 void pescaderias(void)
 {
-    printf("          ||Pescaderia Joaquin(J)||    ||Pescaderia Carlos(C)||\n");
+    printf("                  ||Pescaderia Joaquin(1)||    ||Pescaderia Carlos(2)||\n");
 }
 
