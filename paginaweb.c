@@ -223,19 +223,31 @@ int main()
     //Pantalla inicial
 
     menu_inicio();
-    scanf("%i", &teclamenuinicio); //introducimos la letra correspondiente segun la opcion que queramos
+    do
+    {
+        scanf("%i", &teclamenuinicio);               //Introducimos el numero correspondiente segun la opcion que queramos
+    }                                                //si no introducimos uno de los tres numeros se volvera a escanear hasta que
+    while(teclamenuinicio<1||teclamenuinicio>3);     //se introduzca correctamente.
     switch(teclamenuinicio)
     {
     case 1:
         tiendas();
         fflush(stdin);
-        scanf("%i", &teclatiendas);
+        do
+        {
+            scanf("%i", &teclatiendas);
+        }
+        while(teclatiendas<1||teclatiendas>3);
         switch(teclatiendas)
         {
         case 1:
             charcuterias();
             fflush(stdin);
-            scanf("%i", &teclacharcuterias);
+            do
+            {
+                scanf("%i", &teclacharcuterias);
+            }
+            while(teclacharcuterias!=1&&teclacharcuterias!=2);
             if(teclacharcuterias==1)
             {
                 printf("%s\n", Charcuteriadial);
@@ -248,7 +260,11 @@ int main()
         case 2:
             fruterias();
             fflush(stdin);
-            scanf("%i", &teclafruterias);
+            do
+            {
+                scanf("%i", &teclafruterias);
+            }
+            while(teclafruterias!=1&&teclafruterias!=2);
             if(teclafruterias==1)
             {
                 printf("%s\n", Fruteriaalberto);
@@ -261,7 +277,11 @@ int main()
         case 3:
             pescaderias();
             fflush(stdin);
-            scanf("%i", &teclapescaderias);
+            do
+            {
+                scanf("%i", &teclapescaderias);
+            }
+            while(teclapescaderias!=1&&teclapescaderias!=2);
             if(teclapescaderias==1)
             {
                 printf("%s\n", Pescaderiajoaquin);
