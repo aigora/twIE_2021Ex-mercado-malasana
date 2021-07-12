@@ -3,13 +3,17 @@
 
 void menu_inicio(void);
 void tiendas(void);
+void charcuterias(void);
+void fruterias(void);
+void pescaderias(void);
 int main()
 {
-    FILE *pInformacion, *pDireccion_Hora, *pCharcuteria, *pFruteria, *pPanaderia, *pPescaderia;
-    char *DireccionyHorarios, *Informacion, *Charcuteriadial;
-    long int SizeFicheroDireccionyHorarios, SizeFicheroInformacion, SizeFicherocharcuterialdial;
+    FILE *pInformacion, *pDireccion_Hora, *pCharcuteriaDial, *pCharcuteriaExtremena, *pFruteriaManolo, *FruteriaAlberto;
+    FILE *pPanaderia, *pPescaderiaJoaquin, *pPescaderiaCarlos;
+    char *DireccionyHorarios, *Informacion, *Charcuteriadial, *Charcuteriaextrem;
+    long int SizeFicheroDireccionyHorarios, SizeFicheroInformacion, SizeFicherocharcuterialdial, SizeFicherocharcuteriaextrem;
     int i;
-    char letratiendas_Acerca_Dir, letrainicio;
+    char letramenuinicio, letra_a_inicio, letratiendas, letracharcuterias;
 
     //Fichero con la direccion y horario del mercado
 
@@ -63,33 +67,84 @@ int main()
 
     //Fichero Charcuteria Dial
 
-    pCharcuteria=fopen("charcuteriadial.txt", "r");
-    if(pCharcuteria==NULL)
+    pCharcuteriaDial=fopen("charcuteriadial.txt", "r");
+    if(pCharcuteriaDial==NULL)
     {
         printf("Error al abrir fichero\n");
         exit(-1);
     }
     else
     {
-        fseek(pCharcuteria, 0, SEEK_END);
-        SizeFicherocharcuterialdial=ftell(pCharcuteria);
-        fseek(pCharcuteria, 0, SEEK_SET);
+        fseek(pCharcuteriaDial, 0, SEEK_END);
+        SizeFicherocharcuterialdial=ftell(pCharcuteriaDial);
+        fseek(pCharcuteriaDial, 0, SEEK_SET);
         Charcuteriadial=malloc(SizeFicherocharcuterialdial);
+        if(Charcuteriadial==NULL)
+        {
+            printf("Error:memoria insuficiente\n");
+            exit(-1);
+        }
         i=0;
-        while(fscanf(pCharcuteria, "%c", &Charcuteriadial[i])!=EOF)
+        while(fscanf(pCharcuteriaDial, "%c", &Charcuteriadial[i])!=EOF)
             i++;
-        fclose(pCharcuteria);
+        fclose(pCharcuteriaDial);
+    }
+    //Fichero Charcuteria Extremena
+
+    pCharcuteriaExtremena=fopen("charcuteriaextremena.txt", "r");
+    if(pCharcuteriaExtremena==NULL)
+    {
+        printf("Error al abrir fichero\n");
+        exit(-1);
+    }
+    else
+    {
+        fseek(pCharcuteriaExtremena, 0, SEEK_END);
+        SizeFicherocharcuteriaextrem=ftell(pCharcuteriaExtremena);
+        fseek(pCharcuteriaExtremena, 0, SEEK_SET);
+        Charcuteriaextrem=malloc(SizeFicherocharcuteriaextrem);
+        if(Charcuteriaextrem==NULL)
+        {
+            printf("Error:memoria insuficiente\n");
+            exit(-1);
+        }
+        i=0;
+        while(fscanf(pCharcuteriaExtremena, "%c", &Charcuteriaextrem[i])!=EOF)
+            i++;
+        fclose(pCharcuteriaExtremena);
     }
 
     //Pantalla inicial
 
     menu_inicio();
-    scanf("%c", &letratiendas_Acerca_Dir); //introducimos la letra correspondiente segun la opcion que queramos
-    switch(letratiendas_Acerca_Dir)
+    scanf("%c", &letramenuinicio); //introducimos la letra correspondiente segun la opcion que queramos
+    switch(letramenuinicio)
     {
     case 't':
     case 'T':
         tiendas();
+        fflush(stdin);
+        scanf("%c", &letratiendas);
+        switch(letratiendas)
+        {
+        case 'c':
+        case 'C':
+            charcuterias();
+            break;
+        case 'f':
+        case 'F':
+            fruterias();
+            break;
+        case 'p':
+        case 'P':
+            pescaderias();
+            break;
+        case 'b':
+        case 'B':
+            printf("Panaderia\n");
+            break;
+
+        }
         break;
     case 'a':
     case 'A':
@@ -97,12 +152,13 @@ int main()
         break;
     case 'd':
     case 'D':
-        printf("%s\t", DireccionyHorarios);
+        printf("%s\n", DireccionyHorarios);
+        fflush(stdin);
         do
         {
-            scanf("%c", &letrainicio);
+            scanf("%c", &letra_a_inicio);
         }
-        while(letrainicio!='i'||letrainicio!='I');
+        while(letra_a_inicio!='i'||letra_a_inicio!='I');
         menu_inicio();
         break;
 
@@ -111,7 +167,7 @@ int main()
 }
 void menu_inicio(void)
 {
-    printf("\n\n                               ~~MERCADO  MALASANA~~                    \n\n\n");
+    printf("\n\n                               ~~MERCADO  MALASANA~~\n\n\n");
     printf("        -----------  \t       ---------------------  \t   -----------------------\n");
     printf("       ||Tiendas(T)||\t     ||Acerca del mercado(A)||\t ||Direccion y horarios(D)||\n");
     printf("        -----------  \t       ---------------------  \t   -----------------------\n\n");
@@ -119,5 +175,17 @@ void menu_inicio(void)
 void tiendas(void)
 {
     printf("         ||Charcuteria(C)||\t ||Fruteria(F)||\t ||Panaderia(B)||\t ||Pescaderia(P)||\n");
+}
+void charcuterias(void)
+{
+    printf("          ||Charcuteria Dial(D)||      ||Charcuteria Extremena(E)||\n");
+}
+void fruterias(void)
+{
+    printf("          ||Fruteria Alberto(A)||      ||Fruteria Manolo(M)||\n");
+}
+void pescaderias(void)
+{
+    printf("          ||Pescaderia Joaquin(J)||    ||Pescaderia Carlos(C)||\n");
 }
 
