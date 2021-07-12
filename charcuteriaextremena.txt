@@ -1,10 +1,10 @@
-Numero--Producto----------------------------Precio(euros)-------Cantidad(g)
+Numero--Producto----------------------------Precio(euros)-------Cantidad(kg)
 
-1-------Paleta extremadura 100% iberica-----10.00----------------100
-2-------Paleta de cebo 50% iberica----------6.00-----------------100
-3-------Jamon extremadura 100% iberico------16.50----------------100
-4-------Jamon cebo de campo 50% iberico-----7.90-----------------100
-5-------Queso larsa-------------------------2.75-----------------250
-6-------Queso gorgonzola--------------------6.75-----------------250
-7-------Jamon cocido natural de Madrid------1.19-----------------100
-8-------Jamon cocido natural frances--------2.00-----------------100
+1-------Paleta extremadura 100% iberica-----10.00----------------0.100
+2-------Paleta de cebo 50% iberica----------6.00-----------------0.100
+3-------Jamon extremadura 100% iberico------16.50----------------0.100
+4-------Jamon cebo de campo 50% iberico-----7.90-----------------0.100
+5-------Queso larsa-------------------------2.75-----------------0.250
+6-------Queso gorgonzola--------------------6.75-----------------0.250
+7-------Jamon cocido natural de Madrid------1.19-----------------0.100
+8-------Jamon cocido natural frances--------2.00-----------------0.100

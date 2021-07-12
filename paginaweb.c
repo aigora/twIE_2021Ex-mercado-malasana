@@ -6,12 +6,15 @@ void tiendas(void);
 void charcuterias(void);
 void fruterias(void);
 void pescaderias(void);
+
 int main()
 {
-    FILE *pInformacion, *pDireccion_Hora, *pCharcuteriaDial, *pCharcuteriaExtremena, *pFruteriaManolo, *FruteriaAlberto;
-    FILE *pPanaderia, *pPescaderiaJoaquin, *pPescaderiaCarlos;
-    char *DireccionyHorarios, *Informacion, *Charcuteriadial, *Charcuteriaextrem;
+    FILE *pInformacion, *pDireccion_Hora, *pCharcuteriaDial, *pCharcuteriaExtremena, *pFruteriaManolo, *pFruteriaAlberto;
+    FILE *pPescaderiaJoaquin, *pPescaderiaCarlos;
+    char *DireccionyHorarios, *Informacion, *Charcuteriadial, *Charcuteriaextrem, *Fruteriamanolo, *Fruteriaalberto;
+    char *Pescaderiajoaquin, *Pescaderiacarlos;
     long int SizeFicheroDireccionyHorarios, SizeFicheroInformacion, SizeFicherocharcuterialdial, SizeFicherocharcuteriaextrem;
+    long int SizeFicheroFruteriaManolo, SizeFicheroFruteriaAlberto, SizeFicheroPescaderiaJoaquin, SizeFicheroPescaderiaCarlos;
     int i;
     int teclamenuinicio, teclatiendas, teclacharcuterias, teclafruterias, teclapescaderias;
     char tecla_a_inicio;
@@ -90,6 +93,7 @@ int main()
             i++;
         fclose(pCharcuteriaDial);
     }
+
     //Fichero Charcuteria Extremena
 
     pCharcuteriaExtremena=fopen("charcuteriaextremena.txt", "r");
@@ -114,6 +118,107 @@ int main()
             i++;
         fclose(pCharcuteriaExtremena);
     }
+
+    //Fichero Fruteria Alberto
+
+    pFruteriaAlberto=fopen("fruteriaalberto.txt", "r");
+    if(pFruteriaAlberto==NULL)
+    {
+        printf("Error al abrir fichero\n");
+        exit(-1);
+    }
+    else
+    {
+        fseek(pFruteriaAlberto, 0, SEEK_END);
+        SizeFicheroFruteriaAlberto=ftell(pFruteriaAlberto);
+        fseek(pFruteriaAlberto, 0, SEEK_SET);
+        Fruteriaalberto=malloc(SizeFicheroFruteriaAlberto);
+        if(Fruteriaalberto==NULL)
+        {
+            printf("Error:memoria insuficiente\n");
+            exit(-1);
+        }
+        i=0;
+        while(fscanf(pFruteriaAlberto, "%c", &Fruteriaalberto[i])!=EOF)
+            i++;
+        fclose(pFruteriaAlberto);
+    }
+
+    //Fichero Fruteria Manolo
+
+    pFruteriaManolo=fopen("fruteriamanolo.txt", "r");
+    if(pFruteriaManolo==NULL)
+    {
+        printf("Error al abrir fichero\n");
+        exit(-1);
+    }
+    else
+    {
+        fseek(pFruteriaManolo, 0, SEEK_END);
+        SizeFicheroFruteriaManolo=ftell(pFruteriaManolo);
+        fseek(pFruteriaManolo, 0, SEEK_SET);
+        Fruteriamanolo=malloc(SizeFicheroFruteriaManolo);
+        if(Fruteriamanolo==NULL)
+        {
+            printf("Error:memoria insuficiente\n");
+            exit(-1);
+        }
+        i=0;
+        while(fscanf(pFruteriaManolo, "%c", &Fruteriamanolo[i])!=EOF)
+            i++;
+        fclose(pFruteriaManolo);
+    }
+
+    //Fichero Pescaderia Joaquin
+
+    pPescaderiaJoaquin=fopen("pescaderiajoaquin.txt", "r");
+    if(pPescaderiaJoaquin==NULL)
+    {
+        printf("Error al abrir fichero\n");
+        exit(-1);
+    }
+    else
+    {
+        fseek(pPescaderiaJoaquin, 0, SEEK_END);
+        SizeFicheroPescaderiaJoaquin=ftell(pPescaderiaJoaquin);
+        fseek(pPescaderiaJoaquin, 0, SEEK_SET);
+        Pescaderiajoaquin=malloc(SizeFicheroPescaderiaJoaquin);
+        if(Pescaderiajoaquin==NULL)
+        {
+            printf("Error:memoria insuficiente\n");
+            exit(-1);
+        }
+        i=0;
+        while(fscanf(pPescaderiaJoaquin, "%c", &Pescaderiajoaquin[i])!=EOF)
+            i++;
+        fclose(pPescaderiaJoaquin);
+    }
+
+    //Fichero Pescaderia Carlos
+
+    pPescaderiaCarlos=fopen("pescaderiacarlos.txt", "r");
+    if(pPescaderiaCarlos==NULL)
+    {
+        printf("Error al abrir fichero\n");
+        exit(-1);
+    }
+    else
+    {
+        fseek(pPescaderiaCarlos, 0, SEEK_END);
+        SizeFicheroPescaderiaCarlos=ftell(pPescaderiaCarlos);
+        fseek(pPescaderiaCarlos, 0, SEEK_SET);
+        Pescaderiacarlos=malloc(SizeFicheroPescaderiaCarlos);
+        if(Pescaderiacarlos==NULL)
+        {
+            printf("Error:memoria insuficiente\n");
+            exit(-1);
+        }
+        i=0;
+        while(fscanf(pPescaderiaCarlos, "%c", &Pescaderiacarlos[i])!=EOF)
+            i++;
+        fclose(pPescaderiaCarlos);
+    }
+
 
     //Pantalla inicial
 
@@ -146,36 +251,33 @@ int main()
             scanf("%i", &teclafruterias);
             if(teclafruterias==1)
             {
-                printf("%s\n", Charcuteriadial);
+                printf("%s\n", Fruteriaalberto);
             }
             else if(teclafruterias==2)
             {
-                printf("%s\n", Charcuteriaextrem);
+                printf("%s\n", Fruteriamanolo);
             }
             break;
         case 3:
-            printf("Panaderia\n");
-            break;
-        case 4:
             pescaderias();
             fflush(stdin);
             scanf("%i", &teclapescaderias);
             if(teclapescaderias==1)
             {
-                printf("%s\n", Charcuteriadial);
+                printf("%s\n", Pescaderiajoaquin);
             }
             else if(teclapescaderias==2)
             {
-                printf("%s\n", Charcuteriaextrem);
+                printf("%s\n", Pescaderiacarlos);
             }
             break;
         }
         break;
     case 2:
-        printf("%s\t", Informacion);
+        printf("%s\n\n", Informacion);
         break;
     case 3:
-        printf("%s\n", DireccionyHorarios);
+        printf("%s\n\n", DireccionyHorarios);
         fflush(stdin);
         do
         {
@@ -197,7 +299,7 @@ void menu_inicio(void)
 }
 void tiendas(void)
 {
-    printf("         ||Charcuteria(1)||\t ||Fruteria(2)||\t ||Panaderia(3)||\t ||Pescaderia(4)||\n\n");
+    printf("         ||Charcuteria(1)||\t ||Fruteria(2)||\t ||Pescaderia(3)||\n\n");
 }
 void charcuterias(void)
 {
