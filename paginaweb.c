@@ -1,11 +1,29 @@
 #include<stdio.h>
 #include<stdlib.h>
+#define N 8
 
-void menu_inicio(void);
-void tiendas(void);
-void charcuterias(void);
-void fruterias(void);
-void pescaderias(void);
+
+int menu_inicio(void);
+int tiendas(void);
+int charcuterias(void);
+int fruterias(void);
+int pescaderias(void);
+int comprar(void);
+typedef struct
+{
+    int numero;
+    char nombreproducto[50];
+    float precio, kilos;
+}producto;
+
+typedef struct
+{
+    char nombre[50];
+    char primer_apellido[50];
+    char correo_electronico[50];
+    char contrasena[50];
+}cuenta;
+
 
 int main()
 {
@@ -15,9 +33,12 @@ int main()
     char *Pescaderiajoaquin, *Pescaderiacarlos;
     long int SizeFicheroDireccionyHorarios, SizeFicheroInformacion, SizeFicherocharcuterialdial, SizeFicherocharcuteriaextrem;
     long int SizeFicheroFruteriaManolo, SizeFicheroFruteriaAlberto, SizeFicheroPescaderiaJoaquin, SizeFicheroPescaderiaCarlos;
+    producto lista_productosCharcuteriaDial[N], lista_productosCharcuteriaExtremena[N], lista_productosFruteriaManolo[N];
+    producto lista_productosFruteriaAlberto[N], lista_productosPescaderiaJoaquin[N], lista_productosPescaderiaCarlos[N];
     int i;
     int teclamenuinicio, teclatiendas, teclacharcuterias, teclafruterias, teclapescaderias;
     char tecla_a_inicio;
+    cuenta comprador[50]; //Vector de estructuras para almacenar a los compradores
 
     //Fichero con la direccion y horario del mercado
 
@@ -222,73 +243,68 @@ int main()
 
     //Pantalla inicial
 
-    menu_inicio();
-    do
-    {
-        scanf("%i", &teclamenuinicio);               //Introducimos el numero correspondiente segun la opcion que queramos
-    }                                                //si no introducimos uno de los tres numeros se volvera a escanear hasta que
-    while(teclamenuinicio<1||teclamenuinicio>3);     //se introduzca correctamente.
-    switch(teclamenuinicio)
+    teclamenuinicio=menu_inicio();
+    switch(teclamenuinicio) //switch para elegir entre tiendas, informacion y horarios.
     {
     case 1:
-        tiendas();
-        fflush(stdin);
-        do
-        {
-            scanf("%i", &teclatiendas);
-        }
-        while(teclatiendas<1||teclatiendas>3);
-        switch(teclatiendas)
+        teclatiendas=tiendas(); //Muestro las diferentes categorias de tiendas
+        switch(teclatiendas)   //switch para elegir el tipo de tienda
         {
         case 1:
-            charcuterias();
-            fflush(stdin);
-            do
-            {
-                scanf("%i", &teclacharcuterias);
-            }
-            while(teclacharcuterias!=1&&teclacharcuterias!=2);
+            teclacharcuterias=charcuterias();  //Mostramos las dos charcuterias
             if(teclacharcuterias==1)
             {
                 printf("%s\n", Charcuteriadial);
+                comprar();
+                do
+                {
+                    scanf("%i", &teclacharcuterias);
+                }
+                while(teclacharcuterias!=1&&teclacharcuterias!=2);
+                fflush(stdin);
+                if(teclacharcuterias==1)
+                {
+                    printf("Registrese:\n");
+                    printf("Nombre: ");
+                    scanf("%s", comprador[0].nombre);
+                    printf("Primer apellido: ");
+                    scanf("%s", comprador[0].primer_apellido);
+                    printf("Correo electronico: ");
+                    scanf("%s", comprador[0].correo_electronico);
+                    printf("Contrasena(sin espacios): ");
+                    scanf("%s", comprador[0].contrasena);
+                }
             }
             else if(teclacharcuterias==2)
             {
                 printf("%s\n", Charcuteriaextrem);
+                comprar();
             }
             break;
         case 2:
-            fruterias();
-            fflush(stdin);
-            do
-            {
-                scanf("%i", &teclafruterias);
-            }
-            while(teclafruterias!=1&&teclafruterias!=2);
+            teclafruterias= fruterias(); //Mostramos las dos fruterias
             if(teclafruterias==1)
             {
                 printf("%s\n", Fruteriaalberto);
+                comprar();
             }
             else if(teclafruterias==2)
             {
                 printf("%s\n", Fruteriamanolo);
+                comprar();
             }
             break;
         case 3:
-            pescaderias();
-            fflush(stdin);
-            do
-            {
-                scanf("%i", &teclapescaderias);
-            }
-            while(teclapescaderias!=1&&teclapescaderias!=2);
+            teclapescaderias= pescaderias(); //Mostramos las dos pescaderias
             if(teclapescaderias==1)
             {
                 printf("%s\n", Pescaderiajoaquin);
+                comprar();
             }
             else if(teclapescaderias==2)
             {
                 printf("%s\n", Pescaderiacarlos);
+                comprar();
             }
             break;
         }
@@ -310,27 +326,84 @@ int main()
     }
     return 0;
 }
-void menu_inicio(void)
+
+int menu_inicio(void)
 {
+    int teclamenuinicio;
     printf("\n\n                               ~~MERCADO  MALASANA~~\n\n\n");
     printf("        -----------  \t       ---------------------  \t   -----------------------\n");
     printf("       ||Tiendas(1)||\t     ||Acerca del mercado(2)||\t ||Direccion y horarios(3)||\n");
     printf("        -----------  \t       ---------------------  \t   -----------------------\n\n");
+    do
+    {
+        fflush(stdin);
+        printf("Seleccione una opcion: ");    //Introducimos el numero correspondiente segun la opcion que queramos
+        scanf("%i", &teclamenuinicio);        //si no introducimos uno de los tres numeros se volvera a escanear hasta que se introduzca correctamente.
+        printf("\n");
+    }
+    while(teclamenuinicio!=1&&teclamenuinicio!=2&&teclamenuinicio!=3);
+    return teclamenuinicio;
 }
-void tiendas(void)
+
+int tiendas(void)
 {
+    int teclatiendas;
     printf("         ||Charcuteria(1)||\t ||Fruteria(2)||\t ||Pescaderia(3)||\n\n");
+    do
+    {
+        printf("Seleccione una opcion:");
+        fflush(stdin);
+        scanf("%i", &teclatiendas);  //Bucle do while por si nos equivocamos de tecla
+        printf("\n");
+    }
+    while(teclatiendas!=1&&teclatiendas!=2&&teclatiendas!=3);
+    return teclatiendas;
 }
-void charcuterias(void)
+
+int charcuterias(void)
 {
+    int teclacharcuterias;
     printf("                  ||Charcuteria Dial(1)||      ||Charcuteria Extremena(2)||\n\n");
+    do
+    {
+        printf("Seleccione una opcion:");
+        fflush(stdin);
+        scanf("%i", &teclacharcuterias);
+        printf("\n");
+    }
+    while(teclacharcuterias!=1&&teclacharcuterias!=2);
+    return teclacharcuterias;
 }
-void fruterias(void)
+
+int fruterias(void)
 {
+    int teclafruterias;
     printf("                  ||Fruteria Alberto(1)||      ||Fruteria Manolo(2)||\n");
+    do
+    {
+        fflush(stdin);
+        scanf("%i", &teclafruterias);
+    }
+    while(teclafruterias!=1&&teclafruterias!=2);
+    return teclafruterias;
 }
-void pescaderias(void)
+
+int pescaderias(void)
 {
+    int teclapescaderias;
     printf("                  ||Pescaderia Joaquin(1)||    ||Pescaderia Carlos(2)||\n");
+
+    do
+    {
+        fflush(stdin);
+        scanf("%i", &teclapescaderias);
+    }
+    while(teclapescaderias!=1&&teclapescaderias!=2);
+    return teclapescaderias;
+}
+
+int comprar(void)
+{
+    printf("                    ||Compra Online(1)||       ||Compra por telefono(2)||\n");
 }
 
