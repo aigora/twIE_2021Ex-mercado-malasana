@@ -8,7 +8,7 @@ int tiendas(void);
 int charcuterias(void);
 int fruterias(void);
 int pescaderias(void);
-int inicio_o_comprar(void);
+int inicio_comprar_salir(void);
 typedef struct
 {
     int numero;
@@ -37,7 +37,7 @@ int main()
     producto lista_productosFruteriaAlberto[N], lista_productosPescaderiaJoaquin[N], lista_productosPescaderiaCarlos[N];
     int i;
     int teclamenuinicio, teclatiendas, teclacharcuterias, teclafruterias, teclapescaderias;
-    int teclainicio_o_comprar;
+    int teclainicio_comprar_salir;
     cuenta comprador[50]; //Vector de estructuras para almacenar a los compradores
 
     //Fichero con la direccion y horario del mercado
@@ -292,12 +292,15 @@ int main()
         case 3:
             printf("%s\n\n", DireccionyHorarios);
             break;
+        case 4:
+            return 0;  //Salimos de la pagina
         }
-        teclainicio_o_comprar=inicio_o_comprar();
+        teclainicio_comprar_salir=inicio_comprar_salir();//Elige entre inicio, comprar o salir de la pagina
     }
-    while(teclainicio_o_comprar==1);
+    while(teclainicio_comprar_salir==1);
 
-    if(teclainicio_o_comprar==2)
+
+    if(teclainicio_comprar_salir==2)  //Ha seleccionado comprar, pero tendra que registrarse o iniciar sesion
     {
         printf("Registrese:\n");
         printf("Nombre: ");
@@ -310,17 +313,17 @@ int main()
         scanf("%s", comprador[0].contrasena);
 
     }
-
-    return 0;
+    else if(teclainicio_comprar_salir==3)
+        return 0;
 }
 
 int menu_inicio(void)
 {
     int teclamenuinicio;
     printf("\n\n                               ~~MERCADO  MALASANA~~\n\n\n");
-    printf("        -----------  \t       ---------------------  \t   -----------------------\n");
-    printf("       ||Tiendas(1)||\t     ||Acerca del mercado(2)||\t ||Direccion y horarios(3)||\n");
-    printf("        -----------  \t       ---------------------  \t   -----------------------\n\n");
+    printf("        -----------  \t       ---------------------  \t   -----------------------  \t   --------\n");
+    printf("       ||Tiendas(1)||\t     ||Acerca del mercado(2)||\t ||Direccion y horarios(3)||\t ||Salir(4)||\n");
+    printf("        -----------  \t       ---------------------  \t   -----------------------  \t   --------\n\n");
     do
     {
         fflush(stdin);
@@ -328,7 +331,7 @@ int menu_inicio(void)
         scanf("%i", &teclamenuinicio);        //si no introducimos uno de los tres numeros se volvera a escanear hasta que se introduzca correctamente.
         printf("\n");
     }
-    while(teclamenuinicio!=1&&teclamenuinicio!=2&&teclamenuinicio!=3);
+    while(teclamenuinicio!=1&&teclamenuinicio!=2&&teclamenuinicio!=3&&teclamenuinicio!=4);
     return teclamenuinicio;
 }
 
@@ -389,16 +392,16 @@ int pescaderias(void)
     return teclapescaderias;
 }
 
-int inicio_o_comprar(void)
+int inicio_comprar_salir(void)
 {
-    int teclainicio_o_comprar;
-    printf("                    ||Volver a inicio(1)||       ||Comprar(2)||\n");
+    int teclainicio_comprar_salir;
+    printf("                    ||Volver a inicio(1)||       ||Comprar(2)||     ||Salir(3)||\n");
     do
     {
         fflush(stdin);
-        scanf("%i", &teclainicio_o_comprar);
+        scanf("%i", &teclainicio_comprar_salir);
     }
-    while(teclainicio_o_comprar!=1&&teclainicio_o_comprar!=2);
-    return teclainicio_o_comprar;
+    while(teclainicio_comprar_salir!=1&&teclainicio_comprar_salir!=2&&teclainicio_comprar_salir!=3);
+    return teclainicio_comprar_salir;
 }
 
