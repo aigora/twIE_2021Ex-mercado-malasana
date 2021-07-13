@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 #define N 48
 
 
@@ -13,17 +14,16 @@ int registrarse_iniciarsesion(void);
 
 typedef struct
 {
-    int numero;
-    float precio, kilos;
+    int codigo;
+    float precio;
 }producto;
 
 typedef struct
 {
     char correo_electronico[50];
-    char contrasena[50];
     char nombre[50];
     char primer_apellido[50];
-
+    char contrasena[50];
 }cuenta;
 
 
@@ -33,13 +33,14 @@ int main()
     FILE *pPescaderiaJoaquin, *pPescaderiaCarlos, *pClientesregistrados, *pTodoslosproductos;
     char *DireccionyHorarios, *Informacion, *Charcuteriadial, *Charcuteriaextrem, *Fruteriamanolo, *Fruteriaalberto;
     char *Pescaderiajoaquin, *Pescaderiacarlos;
+    char correo1[50], correo2[50], contrasena1[50];
     long int SizeFicheroDireccionyHorarios, SizeFicheroInformacion, SizeFicherocharcuterialdial, SizeFicherocharcuteriaextrem;
     long int SizeFicheroFruteriaManolo, SizeFicheroFruteriaAlberto, SizeFicheroPescaderiaJoaquin, SizeFicheroPescaderiaCarlos;
     producto lista_productos[N];
-    int i;
+    int i, nClientes;
     int teclamenuinicio, teclatiendas, teclacharcuterias, teclafruterias, teclapescaderias;
     int teclainicio_comprar_salir, teclaregistrarse_iniciarsesion;
-    cuenta cliente[100]; //Vector de estructuras para almacenar a los clientes
+    cuenta cliente[500]; //Vector de estructuras para almacenar a los clientes
 
     //Fichero con la direccion y horario del mercado
 
@@ -241,6 +242,20 @@ int main()
         fclose(pPescaderiaCarlos);
     }
 
+    //Fichero clientes registrados
+    pClientesregistrados=fopen("clientesregistrados.txt", "r");
+    if(pClientesregistrados==NULL)
+    {
+        printf("Error al abrir fichero");
+        exit(-1);
+    }
+    else
+    {
+        nClientes=0;
+        while(fscanf(pClientesregistrados, "%s %s %s %s", cliente[nClientes].correo_electronico, cliente[nClientes].nombre, cliente[nClientes].primer_apellido, cliente[nClientes].contrasena)!=EOF)
+            nClientes++;
+        fclose(pClientesregistrados);
+    }
 
     //Pantalla inicial
     do
@@ -304,17 +319,49 @@ int main()
     if(teclainicio_comprar_salir==2)  //Ha seleccionado comprar, pero tendra que registrarse o iniciar sesion
     {
         teclaregistrarse_iniciarsesion=registrarse_iniciarsesion();
-        if(teclaregistrarse_iniciarsesion==1) //Registrarse
-        {
+        if(teclaregistrarse_iniciarsesion==1)
+        {          //REGISTRARSE
+            do
+            {
+                printf("Correo electronico: ");
+                fflush(stdin);
+                scanf("%s", correo1);
+                for(i=0; i<nClientes; i++)
+                {
+                    if(strcmp(cliente[i].correo_electronico, correo1)==0)
+                    {
+                        printf("Este correo ya existe, escriba otro distinto\n");
+                        break;
+                    }
+                }
+            }
+            while(strcmp(cliente[i].correo_electronico, correo1)==0);
+            strcpy(cliente[nClientes].correo_electronico, correo1);
             printf("Nombre: ");
-            scanf("%s", cliente[0].nombre);
+            scanf("%s", cliente[nClientes].nombre);
+            printf("\n");
             printf("Primer apellido: ");
-            scanf("%s", cliente[0].primer_apellido);
-            printf("Correo electronico: ");
-            scanf("%s", cliente[0].correo_electronico);
-            printf("Contrasena(sin espacios): ");
-            scanf("%s", cliente[0].contrasena);
-        }
+            scanf("%s", cliente[nClientes].primer_apellido);
+            printf("Contrasena: ");
+            scanf("%s", cliente[nClientes].contrasena);
+            fflush(stdin);
+            //Añadir el nuevo usuario al fichero de clientes registrados
+            FILE *pNuevosClientesregistrados;
+            pNuevosClientesregistrados=fopen("clientesregistrados.txt", "a");
+            if(pNuevosClientesregistrados==NULL)
+            {
+                printf("Error al abrir fichero");
+                exit(-1);
+            }
+            else
+            {
+                fprintf(pNuevosClientesregistrados, "%s %s %s %s\n", cliente[nClientes].correo_electronico, cliente[nClientes].nombre, cliente[nClientes].primer_apellido, cliente[nClientes].contrasena);
+                fclose(pClientesregistrados);
+                fflush(stdin);
+            }
+
+
+        }   //Iniciar sesion
         else if(teclaregistrarse_iniciarsesion==2)
         {
             printf("Correo electronico: ");
