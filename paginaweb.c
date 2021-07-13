@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-#define N 8
+#define N 48
 
 
 int menu_inicio(void);
@@ -9,36 +9,37 @@ int charcuterias(void);
 int fruterias(void);
 int pescaderias(void);
 int inicio_comprar_salir(void);
+int registrarse_iniciarsesion(void);
+
 typedef struct
 {
     int numero;
-    char nombreproducto[50];
     float precio, kilos;
 }producto;
 
 typedef struct
 {
-    char nombre[50];
-    char primer_apellido[50];
     char correo_electronico[50];
     char contrasena[50];
+    char nombre[50];
+    char primer_apellido[50];
+
 }cuenta;
 
 
 int main()
 {
     FILE *pInformacion, *pDireccion_Hora, *pCharcuteriaDial, *pCharcuteriaExtremena, *pFruteriaManolo, *pFruteriaAlberto;
-    FILE *pPescaderiaJoaquin, *pPescaderiaCarlos;
+    FILE *pPescaderiaJoaquin, *pPescaderiaCarlos, *pClientesregistrados, *pTodoslosproductos;
     char *DireccionyHorarios, *Informacion, *Charcuteriadial, *Charcuteriaextrem, *Fruteriamanolo, *Fruteriaalberto;
     char *Pescaderiajoaquin, *Pescaderiacarlos;
     long int SizeFicheroDireccionyHorarios, SizeFicheroInformacion, SizeFicherocharcuterialdial, SizeFicherocharcuteriaextrem;
     long int SizeFicheroFruteriaManolo, SizeFicheroFruteriaAlberto, SizeFicheroPescaderiaJoaquin, SizeFicheroPescaderiaCarlos;
-    producto lista_productosCharcuteriaDial[N], lista_productosCharcuteriaExtremena[N], lista_productosFruteriaManolo[N];
-    producto lista_productosFruteriaAlberto[N], lista_productosPescaderiaJoaquin[N], lista_productosPescaderiaCarlos[N];
+    producto lista_productos[N];
     int i;
     int teclamenuinicio, teclatiendas, teclacharcuterias, teclafruterias, teclapescaderias;
-    int teclainicio_comprar_salir;
-    cuenta comprador[50]; //Vector de estructuras para almacenar a los compradores
+    int teclainicio_comprar_salir, teclaregistrarse_iniciarsesion;
+    cuenta cliente[100]; //Vector de estructuras para almacenar a los clientes
 
     //Fichero con la direccion y horario del mercado
 
@@ -302,15 +303,25 @@ int main()
 
     if(teclainicio_comprar_salir==2)  //Ha seleccionado comprar, pero tendra que registrarse o iniciar sesion
     {
-        printf("Registrese:\n");
-        printf("Nombre: ");
-        scanf("%s", comprador[0].nombre);
-        printf("Primer apellido: ");
-        scanf("%s", comprador[0].primer_apellido);
-        printf("Correo electronico: ");
-        scanf("%s", comprador[0].correo_electronico);
-        printf("Contrasena(sin espacios): ");
-        scanf("%s", comprador[0].contrasena);
+        teclaregistrarse_iniciarsesion=registrarse_iniciarsesion();
+        if(teclaregistrarse_iniciarsesion==1) //Registrarse
+        {
+            printf("Nombre: ");
+            scanf("%s", cliente[0].nombre);
+            printf("Primer apellido: ");
+            scanf("%s", cliente[0].primer_apellido);
+            printf("Correo electronico: ");
+            scanf("%s", cliente[0].correo_electronico);
+            printf("Contrasena(sin espacios): ");
+            scanf("%s", cliente[0].contrasena);
+        }
+        else if(teclaregistrarse_iniciarsesion==2)
+        {
+            printf("Correo electronico: ");
+            scanf("%s", cliente[0].correo_electronico);
+            printf("Contrasena(sin espacios): ");
+            scanf("%s", cliente[0].contrasena);
+        }
 
     }
     else if(teclainicio_comprar_salir==3)
@@ -404,4 +415,15 @@ int inicio_comprar_salir(void)
     while(teclainicio_comprar_salir!=1&&teclainicio_comprar_salir!=2&&teclainicio_comprar_salir!=3);
     return teclainicio_comprar_salir;
 }
-
+int registrarse_iniciarsesion(void)
+{
+    int teclaregistrarse_iniciarsesion;
+    printf("                        ||Registrarse(1)||        ||Iniciar session(2)||\n");
+    do
+    {
+        fflush(stdin);
+        scanf("%i", &teclaregistrarse_iniciarsesion);
+    }
+    while(teclaregistrarse_iniciarsesion!=1&&teclaregistrarse_iniciarsesion!=2);
+    return teclaregistrarse_iniciarsesion;
+}

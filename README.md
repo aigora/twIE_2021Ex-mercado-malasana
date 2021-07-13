@@ -11,4 +11,4 @@ Diego, Martín González, diegomg99.
 
 Se mostraran las diferentes secciones: charcuteria, pescaderia,...
 y al acceder a cualquiera de ellas mostrara los puestos relacionados con cada una. Al acceder a cada puesto
-se mostrarán los productos y la opcion de comprarlos de forma online o llamando por telefono gracias al servicio a domicilio.
+se mostrarán los productos y la opcion de comprarlos de forma online gracias al servicio a domicilio.
