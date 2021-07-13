@@ -10,7 +10,3 @@ En Metro:
 
 En autobus:
     Noviciado, linea 3 y 147.
-
-
-Volver a Inicio(I)
-

@@ -8,7 +8,7 @@ int tiendas(void);
 int charcuterias(void);
 int fruterias(void);
 int pescaderias(void);
-int comprar(void);
+int inicio_o_comprar(void);
 typedef struct
 {
     int numero;
@@ -37,7 +37,7 @@ int main()
     producto lista_productosFruteriaAlberto[N], lista_productosPescaderiaJoaquin[N], lista_productosPescaderiaCarlos[N];
     int i;
     int teclamenuinicio, teclatiendas, teclacharcuterias, teclafruterias, teclapescaderias;
-    char tecla_a_inicio;
+    int teclainicio_o_comprar;
     cuenta comprador[50]; //Vector de estructuras para almacenar a los compradores
 
     //Fichero con la direccion y horario del mercado
@@ -242,88 +242,75 @@ int main()
 
 
     //Pantalla inicial
-
-    teclamenuinicio=menu_inicio();
-    switch(teclamenuinicio) //switch para elegir entre tiendas, informacion y horarios.
+    do
     {
-    case 1:
-        teclatiendas=tiendas(); //Muestro las diferentes categorias de tiendas
-        switch(teclatiendas)   //switch para elegir el tipo de tienda
+        teclamenuinicio=menu_inicio();
+        switch(teclamenuinicio) //switch para elegir entre tiendas, informacion y horarios.
         {
         case 1:
-            teclacharcuterias=charcuterias();  //Mostramos las dos charcuterias
-            if(teclacharcuterias==1)
+            teclatiendas=tiendas(); //Muestro las diferentes categorias de tiendas
+            switch(teclatiendas)   //switch para elegir el tipo de tienda
             {
-                printf("%s\n", Charcuteriadial);
-                comprar();
-                do
-                {
-                    scanf("%i", &teclacharcuterias);
-                }
-                while(teclacharcuterias!=1&&teclacharcuterias!=2);
-                fflush(stdin);
+            case 1:
+                teclacharcuterias=charcuterias();  //Mostramos las dos charcuterias
                 if(teclacharcuterias==1)
                 {
-                    printf("Registrese:\n");
-                    printf("Nombre: ");
-                    scanf("%s", comprador[0].nombre);
-                    printf("Primer apellido: ");
-                    scanf("%s", comprador[0].primer_apellido);
-                    printf("Correo electronico: ");
-                    scanf("%s", comprador[0].correo_electronico);
-                    printf("Contrasena(sin espacios): ");
-                    scanf("%s", comprador[0].contrasena);
+                    printf("%s\n", Charcuteriadial);
                 }
-            }
-            else if(teclacharcuterias==2)
-            {
-                printf("%s\n", Charcuteriaextrem);
-                comprar();
+                else if(teclacharcuterias==2)
+                {
+                    printf("%s\n", Charcuteriaextrem);
+                }
+                break;
+            case 2:
+                teclafruterias= fruterias(); //Mostramos las dos fruterias
+                if(teclafruterias==1)
+                {
+                    printf("%s\n", Fruteriaalberto);
+                }
+                else if(teclafruterias==2)
+                {
+                    printf("%s\n", Fruteriamanolo);
+                }
+                break;
+            case 3:
+                teclapescaderias= pescaderias(); //Mostramos las dos pescaderias
+                if(teclapescaderias==1)
+                {
+                    printf("%s\n", Pescaderiajoaquin);
+                }
+                else if(teclapescaderias==2)
+                {
+                    printf("%s\n", Pescaderiacarlos);
+                }
+                break;
             }
             break;
         case 2:
-            teclafruterias= fruterias(); //Mostramos las dos fruterias
-            if(teclafruterias==1)
-            {
-                printf("%s\n", Fruteriaalberto);
-                comprar();
-            }
-            else if(teclafruterias==2)
-            {
-                printf("%s\n", Fruteriamanolo);
-                comprar();
-            }
+            printf("%s\n\n", Informacion);
             break;
         case 3:
-            teclapescaderias= pescaderias(); //Mostramos las dos pescaderias
-            if(teclapescaderias==1)
-            {
-                printf("%s\n", Pescaderiajoaquin);
-                comprar();
-            }
-            else if(teclapescaderias==2)
-            {
-                printf("%s\n", Pescaderiacarlos);
-                comprar();
-            }
+            printf("%s\n\n", DireccionyHorarios);
             break;
         }
-        break;
-    case 2:
-        printf("%s\n\n", Informacion);
-        break;
-    case 3:
-        printf("%s\n\n", DireccionyHorarios);
-        fflush(stdin);
-        do
-        {
-            scanf("%c", &tecla_a_inicio);
-        }
-        while(tecla_a_inicio!='i'||tecla_a_inicio!='I');
-        menu_inicio();
-        break;
+        teclainicio_o_comprar=inicio_o_comprar();
+    }
+    while(teclainicio_o_comprar==1);
+
+    if(teclainicio_o_comprar==2)
+    {
+        printf("Registrese:\n");
+        printf("Nombre: ");
+        scanf("%s", comprador[0].nombre);
+        printf("Primer apellido: ");
+        scanf("%s", comprador[0].primer_apellido);
+        printf("Correo electronico: ");
+        scanf("%s", comprador[0].correo_electronico);
+        printf("Contrasena(sin espacios): ");
+        scanf("%s", comprador[0].contrasena);
 
     }
+
     return 0;
 }
 
@@ -402,8 +389,16 @@ int pescaderias(void)
     return teclapescaderias;
 }
 
-int comprar(void)
+int inicio_o_comprar(void)
 {
-    printf("                    ||Compra Online(1)||       ||Compra por telefono(2)||\n");
+    int teclainicio_o_comprar;
+    printf("                    ||Volver a inicio(1)||       ||Comprar(2)||\n");
+    do
+    {
+        fflush(stdin);
+        scanf("%i", &teclainicio_o_comprar);
+    }
+    while(teclainicio_o_comprar!=1&&teclainicio_o_comprar!=2);
+    return teclainicio_o_comprar;
 }
 
